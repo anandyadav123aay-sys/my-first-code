@@ -1,0 +1,38 @@
+package com.example.onlineshoppingapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class CartActivity extends AppCompatActivity {
+
+    TextView cartItems;
+    Button placeOrderBtn;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cart);
+
+        cartItems = findViewById(R.id.cartItems);
+        placeOrderBtn = findViewById(R.id.placeOrderBtn);
+
+        // Display items (demo)
+        cartItems.setText("1. Stylish T-Shirt - ₹499");
+
+        placeOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CartActivity.this, "✅ Order Placed Successfully!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}
+Button viewCartBtn = findViewById(R.id.viewCartBtn);
+viewCartBtn.setOnClickListener(v -> {
+    Intent intent = new Intent(MainActivity.this, CartActivity.class);
+    startActivity(intent);
+});
