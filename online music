@@ -1,0 +1,203 @@
+package com.example.onlinemusic;
+
+import android.app.*;
+import android.content.*;
+import android.media.*;
+import android.os.*;
+import androidx.core.app.NotificationCompat;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class MusicService extends Service {
+
+    MediaPlayer mediaPlayer;
+    ArrayList<String> playlistUrls = new ArrayList<>();
+    ArrayList<String> playlistNames = new ArrayList<>();
+    int currentIndex = 0;
+
+    private final int NOTIF_ID = 101;
+    public static final String CHANNEL_ID = "music_channel";
+
+    public static final String ACTION_PLAY = "ACTION_PLAY";
+    public static final String ACTION_PAUSE = "ACTION_PAUSE";
+    public static final String ACTION_NEXT = "ACTION_NEXT";
+    public static final String ACTION_PREV = "ACTION_PREV";
+    public static final String ACTION_STOP = "ACTION_STOP";
+
+    public class LocalBinder extends Binder {
+        public MusicService getService() {
+            return MusicService.this;
+        }
+    }
+
+    private final IBinder binder = new LocalBinder();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        createNotificationChannel();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setOnCompletionListener(mp -> {
+            next();
+        });
+    }
+
+    public void setPlaylist(ArrayList<String> urls, ArrayList<String> names) {
+        playlistUrls.clear();
+        playlistUrls.addAll(urls);
+        playlistNames.clear();
+        playlistNames.addAll(names);
+    }
+
+    public ArrayList<String> getPlaylistNames() { return playlistNames; }
+    public int getCurrentIndex() { return currentIndex; }
+
+    public void playIndex(int index) {
+        if (index < 0 || index >= playlistUrls.size()) return;
+        currentIndex = index;
+        try {
+            mediaPlayer.reset();
+            mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .build());
+            mediaPlayer.setDataSource(playlistUrls.get(index));
+            mediaPlayer.prepare(); // for simplicity use prepare (blocking). For better UX use prepareAsync.
+            mediaPlayer.start();
+            startForeground(NOTIF_ID, buildNotification(true));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void play() {
+        if (!mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
+            startForeground(NOTIF_ID, buildNotification(true));
+        }
+    }
+
+    public void pause() {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+            stopForeground(false);
+            // update notification to show play button
+            NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            nm.notify(NOTIF_ID, buildNotification(false));
+        }
+    }
+
+    public boolean isPlaying() { return mediaPlayer != null && mediaPlayer.isPlaying(); }
+    public int getDuration() { return mediaPlayer != null ? mediaPlayer.getDuration() : 0; }
+    public int getCurrentPosition() { return mediaPlayer != null ? mediaPlayer.getCurrentPosition() : 0; }
+
+    public void seekTo(int pos) {
+        if (mediaPlayer != null) mediaPlayer.seekTo(pos);
+    }
+
+    public void next() {
+        if (playlistUrls.size() == 0) return;
+        currentIndex = (currentIndex + 1) % playlistUrls.size();
+        playIndex(currentIndex);
+    }
+
+    public void prev() {
+        if (playlistUrls.size() == 0) return;
+        currentIndex = (currentIndex - 1 + playlistUrls.size()) % playlistUrls.size();
+        playIndex(currentIndex);
+    }
+
+    private Notification buildNotification(boolean isPlaying) {
+        Intent playIntent = new Intent(this, MusicService.class);
+        playIntent.setAction(isPlaying ? ACTION_PAUSE : ACTION_PLAY);
+        PendingIntent pPlay = PendingIntent.getService(this, 0, playIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        Intent nextIntent = new Intent(this, MusicService.class);
+        nextIntent.setAction(ACTION_NEXT);
+        PendingIntent pNext = PendingIntent.getService(this, 0, nextIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        Intent prevIntent = new Intent(this, MusicService.class);
+        prevIntent.setAction(ACTION_PREV);
+        PendingIntent pPrev = PendingIntent.getService(this, 0, prevIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        Intent stopIntent = new Intent(this, MusicService.class);
+        stopIntent.setAction(ACTION_STOP);
+        PendingIntent pStop = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        String title = playlistNames.size() > currentIndex ? playlistNames.get(currentIndex) : "Online Music";
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText("Playing music")
+                .setSmallIcon(R.drawable.ic_music_note)
+                .addAction(android.R.drawable.ic_media_previous, "Prev", pPrev)
+                .addAction(isPlaying ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play, isPlaying ? "Pause" : "Play", pPlay)
+                .addAction(android.R.drawable.ic_media_next, "Next", pNext)
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0,1,2))
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setOngoing(isPlaying);
+
+        return builder.build();
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String name = "Music Playback";
+            String desc = "Channel for music player";
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_LOW);
+            channel.setDescription(desc);
+            NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            nm.createNotificationChannel(channel);
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && intent.getAction() != null) {
+            String act = intent.getAction();
+            switch (act) {
+                case ACTION_PLAY: play(); break;
+                case ACTION_PAUSE: pause(); break;
+                case ACTION_NEXT: next(); break;
+                case ACTION_PREV: prev(); break;
+                case ACTION_STOP:
+                    stopForeground(true);
+                    stopSelf();
+                    break;
+            }
+        }
+        return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            if (mediaPlayer.isPlaying()) mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
+}
+
+
+OnlineMusicApp/
+ ├─ app/
+ │   ├─ src/
+ │   │   ├─ main/
+ │   │   │   ├─ java/com/example/onlinemusic/MainActivity.java
+ │   │   │   ├─ res/layout/activity_main.xml
+ │   │   │   ├─ res/values/colors.xml
+ │   │   │   └─ AndroidManifest.xml
+ ├─ build.gradle
+ ├─ settings.gradle
+
+
+
+
+
