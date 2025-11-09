@@ -1,0 +1,123 @@
+import { Button, Input } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+
+export default function AnandTechUdaan() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white text-gray-800">
+      {/* Header */}
+      <header className="text-center py-10">
+        <h1 className="text-4xl font-bold text-blue-600">AnandTech Udaan</h1>
+        <p className="text-lg mt-2 text-gray-600">Empowering Digital Dreams with Smart Technology Solutions</p>
+        <div className="mt-4 space-x-4">
+          <Button className="bg-blue-600 text-white">Get Started</Button>
+          <Button variant="outline">Join Our Team</Button>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <motion.section
+        className="text-center max-w-3xl mx-auto py-8"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <h2 className="text-2xl font-semibold">Welcome to AnandTech Udaan</h2>
+        <p className="mt-3 text-gray-700">
+          A platform built for creativity, collaboration, and code. We develop websites, apps, and software solutions that help businesses grow faster in the digital world.
+        </p>
+      </motion.section>
+
+      {/* About Us */}
+      <section className="py-12 bg-white" id="about">
+        <div className="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 className="text-3xl font-bold text-blue-600 mb-3">About Us</h3>
+            <p className="text-gray-700 mb-4">
+              AnandTech Udaan is a growing digital innovation company providing complete software, web, and mobile app solutions. Our goal is to create a platform where talented developers, designers, and clients connect to build the future of technology together.
+            </p>
+            <ul className="list-disc pl-5 text-gray-600">
+              <li><strong>Mission:</strong> To make digital growth accessible to everyone.</li>
+              <li><strong>Vision:</strong> Empowering India's next generation of software innovators.</li>
+            </ul>
+          </div>
+          <motion.img
+            src="https://cdn.pixabay.com/photo/2017/01/10/02/37/startup-1965330_1280.jpg"
+            alt="Team working on technology"
+            className="rounded-2xl shadow-lg"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          />
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="py-14 bg-blue-50" id="services">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h3 className="text-3xl font-bold text-blue-600 mb-8">Our Services</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: 'Web Development', desc: 'Modern, fast, and responsive websites for your business.' },
+              { title: 'Mobile App Development', desc: 'Android & iOS apps that make your business accessible everywhere.' },
+              { title: 'Software Consulting', desc: 'Custom software and enterprise solutions designed for your needs.' },
+              { title: 'Cloud Solutions', desc: 'Secure and scalable online systems for your growing projects.' },
+              { title: 'Digital Marketing', desc: 'SEO, Social Media, and Ads that boost your brand presence.' },
+              { title: 'Tech Support', desc: 'Providing quality support and maintenance for your systems.' }
+            ].map((service, i) => (
+              <Card key={i} className="shadow-md rounded-2xl">
+                <CardContent className="p-6">
+                  <h4 className="text-xl font-semibold mb-2 text-blue-600">{service.title}</h4>
+                  <p className="text-gray-700">{service.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Join Our Team */}
+      <section className="py-14 bg-white text-center" id="join">
+        <h3 className="text-3xl font-bold text-blue-600 mb-4">Join Our Team</h3>
+        <p className="max-w-2xl mx-auto text-gray-700 mb-6">
+          We are always looking for passionate software engineers, web developers, and app designers. Work remotely or at our office — collaborate, learn, and grow with us.
+        </p>
+        <Button className="bg-blue-600 text-white">Apply Now</Button>
+      </section>
+
+      {/* Login / Join Dashboard */}
+      <section className="py-16 bg-blue-100 text-center" id="login">
+        <h3 className="text-3xl font-bold text-blue-700 mb-4">Login or Join the Developer Dashboard</h3>
+        <p className="text-gray-700 mb-6">Access your projects, manage collaborations, and start building with the AnandTech Udaan team.</p>
+        <div className="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-lg">
+          <input type="text" placeholder="Email Address" className="w-full border border-gray-300 rounded-lg p-3 mb-3" />
+          <input type="password" placeholder="Password" className="w-full border border-gray-300 rounded-lg p-3 mb-4" />
+          <div className="flex justify-center space-x-4">
+            <Button className="bg-blue-600 text-white w-1/2">Login</Button>
+            <Button variant="outline" className="w-1/2">Register</Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="py-14 bg-blue-50" id="contact">
+        <div className="max-w-4xl mx-auto text-center">
+          <h3 className="text-3xl font-bold text-blue-600 mb-4">Contact Us</h3>
+          <p className="text-gray-700 mb-2">Email: info@anandtechudaan.com</p>
+          <p className="text-gray-700 mb-2">Phone: +91 XXXXX XXXXX</p>
+          <p className="text-gray-700">Mumbai, India</p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-blue-600 text-white py-6 text-center">
+        <p>© 2025 AnandTech Udaan | Powered by Technology & Innovation</p>
+        <div className="space-x-4 mt-2">
+          <a href="#" className="underline">LinkedIn</a>
+          <a href="#" className="underline">GitHub</a>
+          <a href="#" className="underline">Instagram</a>
+        </div>
+      </footer>
+    </div>
+  );
+}
