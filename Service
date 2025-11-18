@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anand Web Services</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            color: #222;
+        }
+        header {
+            background: #0b8a1f;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        nav {
+            background: #0d6b19;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            padding: 50px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        h2 {
+            color: #0b8a1f;
+        }
+        .service-box {
+            background: #f4fff5;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #0b8a1f;
+            border-radius: 5px;
+        }
+        .review-box {
+            background: #f4fff5;
+            padding: 15px;
+            border-left: 5px solid #0b8a1f;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        footer {
+            background: #0b8a1f;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Anand Web Services</h1>
+    <p>Professional Website • Apps • Software • Digital Solutions</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<section id="home">
+    <h2>Home</h2>
+    <p>We provide high-quality, fast, and affordable digital solutions including website development, mobile apps, software, UI/UX design, and digital marketing. Your business growth is our priority.</p>
+</section>
+
+<section id="about">
+    <h2>About Us</h2>
+    <p>Anand Web Services is dedicated to helping businesses build their digital presence. With expertise in modern technologies, we deliver clean, fast, and responsive designs trusted by clients across India.</p>
+</section>
+
+<section id="services">
+    <h2>Our Services</h2>
+
+    <div class="service-box"><strong>✔ Website Development</strong><br>Custom websites for business, portfolio, eCommerce, and brands.</div>
+
+    <div class="service-box"><strong>✔ Mobile App Development</strong><br>Android & iOS apps for startups and businesses.</div>
+
+    <div class="service-box"><strong>✔ Software Development</strong><br>Billing software, management software, CRM & ERP systems.</div>
+
+    <div class="service-box"><strong>✔ Digital Marketing</strong><br>Google Ads, SEO, social media marketing to grow your business fast.</div>
+</section>
+
+<section id="reviews">
+    <h2>Client Reviews</h2>
+
+    <div class="review-box">⭐⭐⭐⭐⭐ "Best service provider, highly recommended!"</div>
+    <div class="review-box">⭐⭐⭐⭐⭐ "Fast delivery and amazing support!"</div>
+    <div class="review-box">⭐⭐⭐⭐⭐ "Professional designs at affordable prices."</div>
+    <div class="review-box">⭐⭐⭐⭐⭐ "My business grew fast with their website & ads."</div>
+</section>
+
+<section id="blog">
+    <h2>Blog</h2>
+    <p>Coming Soon: Tips on Website, Apps, Software, SEO, and Digital Marketing.</p>
+</section>
+
+<section id="contact">
+    <h2>Contact Us</h2>
+    <p><strong>📞 Phone:</strong> ‪+91 7021308824‬</p>
+    <p><strong>📧 Email:</strong> anandyadav123aay@gmail.com</p>
+    <p><strong>📍 Address:</strong> India</p>
+</section>
+
+<footer>
+    © 2025 Anand Web Services — All Rights Reserved.
+</footer>
+
+</body>
+</html>
