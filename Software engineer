@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, sir</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <h1 class="title">Hello World! </h1>
+      
+      <script src="script.js"></script>
+       Anand Yadav: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anand Yadav | Software Engineer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Anand Yadav</h1>
+    <p>Software Engineer | Web Developer | App Developer | IT Solutions</p>
+    <p class="contact">📞 7021308824 | ✉️ anandyadav123aay@gmail.com</p>
+</header>
+
+<nav>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<section id="about">
+    <h2>About Me</h2>
+    <p>I am Anand Yadav, a professional Software Engineer providing high-quality Web, App, and Software development services. I help businesses build modern and powerful digital solutions.</p>
+</section>
+
+<section id="services">
+    <h2>My Services</h2>
+    <ul>
+        <li>✔ Website Development</li>
+        <li>✔ Android App Development</li>
+        <li>✔ Software Development</li>
+        <li>✔ E-Commerce Website</li>
+        <li>✔ UI/UX Design</li>
+        <li>✔ API Integration</li>
+        <li>✔ IT Support & Maintenance</li>
+        <li>✔ Digital Marketing</li>
+    </ul>
+</section>
+
+<section id="skills">
+    <h2>Skills</h2>
+    <ul>
+        <li>HTML, CSS, JavaScript</li>
+        <li>Python, Java, C++</li>
+        <li>React, Node.js</li>
+        <li>MySQL, MongoDB</li>
+        <li>Android Development</li>
+        <li>WordPress</li>
+    </ul>
+</section>
+
+<section id="projects">
+    <h2>Projects</h2>
+    <ul>
+        <li>💼 E-Commerce Website</li>
+        <li>💼 Inventory Management Software</li>
+        <li>💼 Android Billing Application</li>
+        <li>💼 Portfolio Website</li>
+        <li>💼 CRM System</li>
+    </ul>
+</section>
+
+<section id="contact">
+    <h2>Contact Me</h2>
+    <p>If you want to build any Website, App, or Software — feel free to contact me.</p>
+
+    <div class="contact-box">
+        <p><strong>Phone:</strong> 7021308824</p>
+        <p><strong>Email:</strong> anandyadav123aay@gmail.com</p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 Anand Yadav | Software Engineer</p>
+</footer>
+
+</body>
+</html>
+ Anand Yadav: * {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+}
+
+header {
+    text-align: center;
+    background: #222;
+    color: white;
+    padding: 40px;
+}
+
+nav {
+    text-align: center;
+    background: black;
+    padding: 15px;
+}
+
+nav a {
+    color: green;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav a:hover {
+    color: orange;
+}
+
+section {
+    padding: 40px;
+    background: white;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+ul li {
+    margin: 8px 0;
+    font-size: 18px;
+}
+
+.contact-box {
+    background: #eee;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #222;
+    color: white;
+    margin-top: 20px;
+}
+  </body>
+</html>
