@@ -1,0 +1,103 @@
+package com.example.onlinemusic;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+
+public class MainActivity extends AppCompatActivity {
+
+    private MediaPlayer mediaPlayer;
+    private Button playBtn, pauseBtn, stopBtn;
+    private TextView songTitle;
+
+    // Online Music URL
+    private String MUSIC_URL = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        playBtn = findViewById(R.id.playBtn);
+        pauseBtn = findViewById(R.id.pauseBtn);
+        stopBtn = findViewById(R.id.stopBtn);
+        songTitle = findViewById(R.id.songTitle);
+
+        songTitle.setText("🎵 Online Music - Blue Theme");
+
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playMusic();
+            }
+        });
+
+        pauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pauseMusic();
+            }
+        });
+
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopMusic();
+            }
+        });
+    }
+
+    private void playMusic() {
+        if (mediaPlayer == null) {
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioAttributes(
+                    new AudioAttributes.Builder()
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .build()
+            );
+            try {
+                mediaPlayer.setDataSource(MUSIC_URL);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+                Toast.makeText(this, "Playing Online Music 🎶", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error loading music!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            mediaPlayer.start();
+        }
+    }
+
+    private void pauseMusic() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+            Toast.makeText(this, "Music Paused ⏸️", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void stopMusic() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+            Toast.makeText(this, "Music Stopped ⏹️", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
+}
