@@ -1,0 +1,241 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+
+// -----------------------------------------------------------
+// MAIN CLASS
+// -----------------------------------------------------------
+public class MainApp {
+    public static void main(String[] args) {
+        new LoginPage();
+    }
+}
+
+// -----------------------------------------------------------
+// LOGIN PAGE
+// -----------------------------------------------------------
+class LoginPage extends JFrame implements ActionListener {
+
+    JTextField userField;
+    JPasswordField passField;
+    JButton loginBtn, regBtn;
+
+    public LoginPage() {
+
+        setTitle("Login");
+        setSize(350, 260);
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JLabel u = new JLabel("Username:");
+        u.setBounds(30, 30, 100, 30);
+        add(u);
+
+        userField = new JTextField();
+        userField.setBounds(130, 30, 150, 30);
+        add(userField);
+
+        JLabel p = new JLabel("Password:");
+        p.setBounds(30, 80, 100, 30);
+        add(p);
+
+        passField = new JPasswordField();
+        passField.setBounds(130, 80, 150, 30);
+        add(passField);
+
+        loginBtn = new JButton("Login");
+        loginBtn.setBounds(110, 130, 100, 30);
+        loginBtn.addActionListener(this);
+        add(loginBtn);
+
+        regBtn = new JButton("Register");
+        regBtn.setBounds(110, 170, 100, 30);
+        regBtn.addActionListener(this);
+        add(regBtn);
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == loginBtn) {
+            new Dashboard();
+            dispose();
+        }
+        if (e.getSource() == regBtn) {
+            new RegisterPage();
+        }
+    }
+}
+
+// -----------------------------------------------------------
+// REGISTER PAGE
+// -----------------------------------------------------------
+class RegisterPage extends JFrame {
+
+    public RegisterPage() {
+        setTitle("Register User");
+        setSize(350, 350);
+        setLayout(new FlowLayout());
+
+        JTextField user = new JTextField(20);
+        JTextField pass = new JTextField(20);
+        JButton save = new JButton("Save");
+
+        add(new JLabel("New Username:"));
+        add(user);
+        add(new JLabel("New Password:"));
+        add(pass);
+        add(save);
+
+        save.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "User Registered Successfully!");
+        });
+
+        setVisible(true);
+    }
+}
+
+// -----------------------------------------------------------
+// DASHBOARD
+// -----------------------------------------------------------
+class Dashboard extends JFrame implements ActionListener {
+
+    JButton billBtn, invBtn, empBtn, exitBtn;
+
+    public Dashboard() {
+
+        setTitle("Dashboard");
+        setSize(400, 350);
+        setLayout(new GridLayout(4, 1, 10, 10));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        billBtn = new JButton("Billing System");
+        invBtn = new JButton("Inventory System");
+        empBtn = new JButton("Employee Management");
+        exitBtn = new JButton("Exit");
+
+        add(billBtn);
+        add(invBtn);
+        add(empBtn);
+        add(exitBtn);
+
+        billBtn.addActionListener(this);
+        invBtn.addActionListener(this);
+        empBtn.addActionListener(this);
+        exitBtn.addActionListener(this);
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == billBtn) new Billing();
+        if (e.getSource() == invBtn) new Inventory();
+        if (e.getSource() == empBtn) new Employee();
+        if (e.getSource() == exitBtn) System.exit(0);
+    }
+}
+
+// -----------------------------------------------------------
+// BILLING SYSTEM
+// -----------------------------------------------------------
+class Billing extends JFrame {
+
+    public Billing() {
+        setTitle("Billing System");
+        setSize(400, 200);
+        setLayout(new FlowLayout());
+
+        JTextField price = new JTextField(10);
+        JTextField qty = new JTextField(10);
+        JLabel result = new JLabel("Total: ");
+
+        JButton calc = new JButton("Calculate");
+
+        add(new JLabel("Item Price:"));
+        add(price);
+        add(new JLabel("Quantity:"));
+        add(qty);
+        add(calc);
+        add(result);
+
+        calc.addActionListener(e -> {
+            try {
+                double p = Double.parseDouble(price.getText());
+                int q = Integer.parseInt(qty.getText());
+                result.setText("Total: " + (p * q));
+            } catch (Exception ex) {
+                result.setText("Enter valid values!");
+            }
+        });
+
+        setVisible(true);
+    }
+}
+
+// -----------------------------------------------------------
+// INVENTORY SYSTEM
+// -----------------------------------------------------------
+class Inventory extends JFrame {
+
+    DefaultListModel<String> model = new DefaultListModel<>();
+
+    public Inventory() {
+        setTitle("Inventory System");
+        setSize(400, 300);
+        setLayout(new FlowLayout());
+
+        JTextField itemName = new JTextField(10);
+        JButton add = new JButton("Add Item");
+        JButton remove = new JButton("Remove Selected");
+        JList<String> list = new JList<>(model);
+
+        add(new JLabel("Item:"));
+        add(itemName);
+        add(add);
+        add(remove);
+        add(new JScrollPane(list));
+
+        add.addActionListener(e -> model.addElement(itemName.getText()));
+        remove.addActionListener(e -> {
+            int index = list.getSelectedIndex();
+            if (index != -1) model.remove(index);
+        });
+
+        setVisible(true);
+    }
+}
+
+// -----------------------------------------------------------
+// EMPLOYEE MANAGEMENT
+// -----------------------------------------------------------
+class Employee extends JFrame {
+
+    DefaultListModel<String> empModel = new DefaultListModel<>();
+
+    public Employee() {
+        setTitle("Employee Management");
+        setSize(400, 300);
+        setLayout(new FlowLayout());
+
+        JTextField empName = new JTextField(10);
+        JButton addEmp = new JButton("Add Employee");
+        JButton removeEmp = new JButton("Remove Selected");
+        JList<String> list = new JList<>(empModel);
+
+        add(new JLabel("Employee Name:"));
+        add(empName);
+        add(addEmp);
+        add(removeEmp);
+        add(new JScrollPane(list));
+
+        addEmp.addActionListener(e -> empModel.addElement(empName.getText()));
+
+        removeEmp.addActionListener(e -> {
+            int index = list.getSelectedIndex();
+            if (index != -1) empModel.remove(index);
+        });
+
+        setVisible(true);
+    }
+}
