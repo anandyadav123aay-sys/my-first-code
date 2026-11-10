@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Web Tech Udaan</title>
+  <meta name="description" content="Web Tech Udaan - Websites, Web Apps & Maintenance" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1>Web Tech <span>Udaan</span></h1>
+      <p class="tag">Aapka digital safar, humare saath</p>
+      <a class="btn" href="#contact">7021308824 Kare</a>
+    </div>
+  </header>
+
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Services</h2>
+      <ul class="services-list">
+        <li>Website Development (HTML/CSS/JS)</li>
+        <li>Responsive Design & Mobile Optimization</li>
+        <li>Web Apps (React / Node.js)</li>
+        <li>Website Maintenance & Hosting</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section light">
+    <div class="container">
+      <h2>Portfolio (Examples)</h2>
+      <div class="cards">
+        <div class="card"><h3>Business Site</h3><p>Brochure site for local shops</p></div>
+        <div class="card"><h3>Portfolio</h3><p>Designer/Developer portfolio</p></div>
+        <div class="card"><h3>Web App</h3><p>Small SaaS / Dashboard</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2>About</h2>
+      <p>Web Tech Udaan chhote aur medium businesses ke liye modern websites banata hai. Fast, secure aur SEO friendly solutions.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="section light">
+    <div class="container">
+      <h2>Contact</h2>
+      <form id="contactForm" action="https://formspree.io/f/your-form-id" method="POST">
+        <input type="text" name="name" placeholder="Aapka naam" required>
+        <input type="email" name="_replyto" placeholder="Email" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <p>Ya seedha WhatsApp karein: <a href="https://wa.me/91XXXXXXXXXX" target="_blank">WhatsApp</a></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> Web Tech Udaan — Made with ❤️</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+[10:42 am, 03/12/2025] Anand Yadav: :root{--bg:#0f1724;--accent:#1e90ff;--card:#f7f7f7}
+*{box-sizing:border-box;font-family:Inter,system-ui,Arial,sans-serif}
+body{margin:0;background:white;color:#0b1220}
+.container{max-width:1000px;margin:0 auto;padding:2rem}
+.hero{background:linear-gradient(90deg,#eef2ff,#fff);padding:3rem 0;text-align:center}
+.hero h1{font-size:2.5rem;margin:0}
+.hero h1 span{color:var(--accent)}
+.tag{margin-top:0.5rem;color:#334155}
+.btn{display:inline-block;margin-top:1rem;padding:.6rem 1rem;border-radius:8px;background:var(--accent);color:white;text-decoration:none}
+.section{padding:3rem 0}
+.light{background:#fbfbff}
+.services-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;list-style:none;padding:0}
+.card{padding:1rem;border-radius:8px;background:white;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+input,textarea{width:100%;padding:.6rem;margin:.4rem 0;border:1px solid #ddd;border-radius:6px}
+button{padding:.6rem 1rem;border:none;border-radius:6px;background:var(--accent);color:white;cursor:pointer}
+.footer{padding:1.5rem 0;text-align:center;color:#64748b}
+[10:42 am, 03/12/2025] Anand Yadav: document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Optional: submit handler to show a message (Formspree handles send) */
+const form = document.getElementById('contactForm');
+if(form){
+  form.addEventListener('submit', (e)=>{
+    // let it submit normally; you can add custom UI here
+    alert('Form submit ho gaya — dhanyavaad! (If you used Formspree, check email anandyadav123aay@gmail.com)');
+  });
+}
+[10:43 am, 03/12/2025] Anand Yadav: git init
+git add .
+git commit -m "Initial site"
+git branch -M main
+git remote add origin https://github.com/yourusername/web-tech-udaan.git
+git push -u origin main
